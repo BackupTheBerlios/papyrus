@@ -136,7 +136,7 @@ public class ItemListBean {
 			query.insert(0, "WHERE ");
 		}
 		logger_.debug("constructSearchQuery : end(" + query + ")");
-		return(Utilities.replaceString(pqueryTemplate, "<CONDITIONS>", query.toString()));
+		return(Utilities.replaceString(pqueryTemplate, "@CONDITIONS@", query.toString()));
 	}	
 
 	/**

@@ -53,9 +53,22 @@ public class FormMappingObject {
 	/** list of fields */
 	private LinkedList fieldsList_ = null;
 
+	/** Default constructor */
+	public FormMappingObject() {
+		logger_.debug("FormMappingObject : begin (DEFAULT CONSTRUCTOR)");
+		
+		/* create the HashMap will contain the data of the HTML form */
+		htmlData_ = new HashMap(); 
+		
+		/* create the Hashmap will contain the error for each field (if there is error) */
+		errorFields_ = new HashMap();
+		
+		logger_.debug("FormMappingObject : end");
+	}
+
 	/** Create a FormMappingObject */
 	public FormMappingObject(String pname, LinkedList pfieldsList) {
-		logger_.debug("FormMappingObject : begin");
+		logger_.debug("FormMappingObject : begin (" + pname + ")");
 		
 		name_ = pname;
 		
