@@ -215,29 +215,29 @@ public class DBMappingObject {
 					/* String Object */
 					if (value instanceof java.lang.String)
 						pstmt.setString(i + 1, (String) value);
-						
+	
 					/* Short */
-					if (value instanceof java.lang.Short)
+					else if (value instanceof java.lang.Short)
 						pstmt.setShort(i + 1, ((Short) value).shortValue());	
 						
 					/* Integer */
-					if (value instanceof java.lang.Integer)
+					else if (value instanceof java.lang.Integer)
 						pstmt.setInt(i + 1, ((Integer) value).intValue());
 						
 					/* Long */
-					if (value instanceof java.lang.Long)
+					else if (value instanceof java.lang.Long)
 						pstmt.setLong(i + 1, ((Long) value).longValue());
 						
 					/* Float */
-					if (value instanceof java.lang.Float)
+					else if (value instanceof java.lang.Float)
 						pstmt.setFloat(i + 1, ((Float) value).floatValue());
 						
 					/* Boolean */
-					if (value instanceof java.lang.Boolean)
+					else if (value instanceof java.lang.Boolean)
 						pstmt.setBoolean(i + 1, ((Boolean) value).booleanValue());
 						
 					/* Date */
-					if (value instanceof java.util.Date)
+					else if (value instanceof java.util.Date)
 						pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) value).getTime()));
 				}
 			
@@ -270,7 +270,7 @@ public class DBMappingObject {
 	 * @throws PapyrusException
 	 */
 	public Object load(Object pid) throws PapyrusException {
-		logger_.debug("load : begin (" + pid + ", " + pid.getClass().getName() + ")");
+		logger_.debug("load : begin (" + pid + ", " + pid.getClass().getName() + ", " + view_ + ")");
 		
 		/* variable needed for SQL */ 
 		Connection connection = null; 
@@ -280,10 +280,10 @@ public class DBMappingObject {
 		Object result = null;
 		
 		/* check if there is a view to use */
-		if (null == view_)
+		if (null == view_ || 0 == view_.length())
 			query = "SELECT * FROM " + table_ + " WHERE " + id_.getName() + " = ?;";
 		else
-			query = "SELECt * FROM " + view_ + " WHERE " + id_.getName() + " = ?;";
+			query = "SELECT * FROM " + view_ + " WHERE " + id_.getName() + " = ?;";
 		
 		logger_.debug("load : query = " + query);
 		
@@ -296,15 +296,15 @@ public class DBMappingObject {
 				pstmt.setString(1, (String) pid);
 				
 			/* Integer object */
-			if (pid instanceof Integer)
+			else if (pid instanceof Integer)
 				pstmt.setInt(1, ((Integer) pid).intValue());
 			
 			/* Date */
-			if (pid instanceof Date)
+			else if (pid instanceof Date)
 				pstmt.setDate(1, (Date) pid);
 							
 			/* Long */
-			if (pid instanceof Long)
+			else if (pid instanceof Long)
 				pstmt.setLong(1, ((Long) pid).longValue());	
 		
 			/* execute the query */
@@ -358,7 +358,7 @@ public class DBMappingObject {
 			/* execute the query */
 			rs = pstmt.executeQuery();
 				
-			if (rs.next()) {
+			while (rs.next()) {
 				/* create a new instance of the object and add it to the list */	
 				result.add(createNewObject(rs));
 			}
@@ -823,22 +823,22 @@ public class DBMappingObject {
 					if ("Integer".equals(property.getType()))
 						cstmt.setInt(pos, ((Integer) value).intValue());
 					
-					if ("Long".equals(property.getType()))
+					else if ("Long".equals(property.getType()))
 						cstmt.setLong(pos, ((Long) value).longValue());
 					
-					if("Short".equals(property.getType()))
-						cstmt.setShort(pos, ((Short) value).shortValue());
+					else if("Short".equals(property.getType()))
+						cstmt.setObject(pos, value, Types.SMALLINT);
 					
-					if ("Float".equals(property.getType()))
+					else if ("Float".equals(property.getType()))
 						cstmt.setFloat(pos, ((Float) value).floatValue());
 					
-					if ("String".equals(property.getType()))
+					else if ("String".equals(property.getType()))
 						cstmt.setObject(pos, value, Types.VARCHAR);
 						
-					if ("Boolean".equals(property.getType()))
+					else if ("Boolean".equals(property.getType()))
 						cstmt.setBoolean(pos, ((Boolean) value).booleanValue());
 						
-					if ("Date".equals(property.getType()))
+					else if ("Date".equals(property.getType()))
 						cstmt.setDate(pos, (Date) value);
 							
 					logger_.debug("updateWithStoredProcedure : property processed OK "); 

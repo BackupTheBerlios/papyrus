@@ -22,7 +22,6 @@ import com.papyrus.action.DomainAction;
 import com.papyrus.data.mapping.db.DBMappingFactory;
 import com.papyrus.data.mapping.db.DBMappingObject;
 import com.papyrus.data.mapping.form.*;
-//import com.papyrus.data.form.FormBean;
 import com.papyrus.data.ItemListBean;
 import com.papyrus.common.PapyrusException;
 import com.papyrus.common.Logger;
@@ -83,10 +82,15 @@ public class AgencyAction implements DomainAction {
 		/* add agency */
 		if ("add".equals(action))
 			url = addAction(session, parametersMap);
+			/* update the list of agencies */
+			((AgenciesBean) pserlvet.getServletContext().getAttribute("agenciesBean")).load();
 		
 		/* update agency */
-		if ("update".equals(action))
-			url = updateAction(session, parametersMap);		
+		if ("update".equals(action)) {
+			url = updateAction(session, parametersMap);
+			/* update the list of agencies */
+			((AgenciesBean) pserlvet.getServletContext().getAttribute("agenciesBean")).load();
+		}		
 		
 		/* delete employee(s) */
 		if ("delete".equals(action))

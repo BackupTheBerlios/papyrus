@@ -50,6 +50,9 @@ public class AgenciesBean {
 	public void load() throws PapyrusException {
 		logger_.debug("load : begin");
 		
+		/* clear the hash map */
+		agenciesMap_.clear();
+		
 		/* get the list */
 		DBMappingObject agencyDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(AgencyBean.class.getName());
 		agenciesList_ = agencyDBMappingObject.loadAll();
