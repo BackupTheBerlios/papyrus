@@ -270,13 +270,13 @@ public class DBMappingObject {
 		/* create the query */
 		if (puseView) {
 			if (null != view_)
-				query = view_;
+				query += view_;
 			else {
 				logger_.debug("loadByWhere : no available view");
 				return null; 
 			}
 		} else
-			query = table_;
+			query += table_;
 				
 		if (0 != pattributes.length && pattributes.length == pvalues.length) {
 			query += " WHERE ";
