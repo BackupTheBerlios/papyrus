@@ -25,20 +25,14 @@
 	<body>
 	
 		<!-- display header : company logo + menu + user info -->
-		<!--<c:import url="/include/jsp/header.jsp" />-->
-		<!-- Display menu -->
-<div class="boxMenu">
-	<script>
-		document.write(menuBar);	
-	</script>
-</div>
-
+		<c:import url="/include/jsp/header.jsp" />
+	
 		<br>
 				
 		<h1 class="title">Accueil</h1>
 
 		<br><br><br>
 
-		<div class="message">BIENVENUE DANS L'APPLICATION eGestion Commerciale (version 0.1)</<div>
+		<div class="message">BIENVENUE DANS L'APPLICATION Papyrus eGestion Commerciale (version 0.1)</<div>
 	</body>
 </html>

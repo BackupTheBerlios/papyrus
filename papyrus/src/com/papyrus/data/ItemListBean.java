@@ -22,8 +22,9 @@ import com.papyrus.data.mapping.form.Field;
  * @author did
  *
  * This class permits to store ItemBean (like AgencyBean for example) 
- * in order to create a multipage navigation system. ItemListBean uses any
- * bean that extends the ItemBean class.
+ * in order to create a multipage navigation system.
+ * 
+ * ItemListBean uses any bean that extends the ItemBean class (DEPRECATED)
  */
 public class ItemListBean {
 

@@ -177,6 +177,17 @@ public class DBMappingObject {
 	 * @throws PapyrusException
 	 */
 	public LinkedList loadByWhere(String pwhere) throws PapyrusException {
+		return loadByWhere(pwhere, true);
+	}	
+	
+	/**
+	 * Load all the object which correspond to the query.
+	 * @param pwhere 
+	 * @param puseView indicate if the we use the view or not to create the query
+	 * @return a list of objects
+	 * @throws PapyrusException
+	 */
+	public LinkedList loadByWhere(String pwhere, boolean puseView) throws PapyrusException {
 		logger_.debug("loadByWhere : begin");
 		
 		LinkedList result = new LinkedList();
@@ -187,7 +198,16 @@ public class DBMappingObject {
 		String query = "SELECT * FROM ";
 		
 		/* create the query */
-		query += (null == view_) ? table_ : view_;
+		if (puseView) {
+			if (null != view_)
+				query = view_;
+			else {
+				logger_.debug("loadByWhere : no available view");
+				return null;
+			}
+		} else
+			query = table_;
+		
 		query += (null != pwhere) ? "WHERE " + pwhere : "";
 		
 		logger_.debug("loadByWhere : query = " + query);
@@ -217,8 +237,7 @@ public class DBMappingObject {
 			} catch (Exception e) { }
 		}	
 	}
-			
-	
+
 	/**
 	 * Load all the object which correspond to the query.
 	 * @param pattributes this array contains the name of the criteria
@@ -227,6 +246,18 @@ public class DBMappingObject {
 	 * @throws PapyrusException
 	 */
 	public LinkedList loadByWhere(String pattributes[], Object pvalues[]) throws PapyrusException {
+		return loadByWhere(pattributes, pvalues, true);
+	}			
+	
+	/**
+	 * Load all the object which correspond to the query.
+	 * @param pattributes this array contains the name of the criteria
+	 * @param pvalues this array contains the value of the criteria
+	 * @param puseView indicate if the we use the view or not to create the query
+	 * @return a list of objects
+	 * @throws PapyrusException
+	 */
+	public LinkedList loadByWhere(String pattributes[], Object pvalues[], boolean puseView) throws PapyrusException {
 		logger_.debug("loadByWhere : begin");
 		
 		LinkedList result = new LinkedList();
@@ -237,8 +268,16 @@ public class DBMappingObject {
 		String query = "SELECT * FROM ";
 		
 		/* create the query */
-		query += (null == view_) ? table_ : view_;
-		
+		if (puseView) {
+			if (null != view_)
+				query = view_;
+			else {
+				logger_.debug("loadByWhere : no available view");
+				return null; 
+			}
+		} else
+			query = table_;
+				
 		if (0 != pattributes.length && pattributes.length == pvalues.length) {
 			query += " WHERE ";
 			
@@ -318,12 +357,23 @@ public class DBMappingObject {
 	}
 	
 	/**
-	 * Load from the database the object from an unique id
-	 * @param pid the identifier in the database of the object
+	 * Load from the database the object from an unique id 
+	 * @param pid the identifier in the database of the object (generally an integer)
 	 * @return the object if it exists, null otherwise
 	 * @throws PapyrusException
 	 */
 	public Object load(Object pid) throws PapyrusException {
+		return load(pid, true);
+	}	
+	
+	/**
+	 * Load from the database the object from an unique id 
+	 * @param pid the identifier in the database of the object (generally an integer)
+	 * @param puseView indicate if the we use the view or not to create the query
+	 * @return the object if it exists, null otherwise
+	 * @throws PapyrusException
+	 */
+	public Object load(Object pid, boolean puseView) throws PapyrusException {
 		logger_.debug("load : begin (" + pid + ", " + pid.getClass().getName() + ", " + view_ + ")");
 		
 		/* variable needed for SQL */ 
@@ -334,10 +384,15 @@ public class DBMappingObject {
 		Object result = null;
 		
 		/* check if there is a view to use */
-		if (null == view_ || 0 == view_.length())
+		if (puseView) {
+			if (null != view_ && 0 != view_.length())
+				query = "SELECT * FROM " + view_ + " WHERE " + id_.getName() + " = ?;";
+			else {
+				logger_.debug("load : no available view");
+				return null;
+			}
+		} else
 			query = "SELECT * FROM " + table_ + " WHERE " + id_.getName() + " = ?;";
-		else
-			query = "SELECT * FROM " + view_ + " WHERE " + id_.getName() + " = ?;";
 		
 		logger_.debug("load : query = " + query);
 		
@@ -385,11 +440,21 @@ public class DBMappingObject {
 	}
 	
 	/**
-	 * Load all the objects from a table or a view 
+	 * Load all the objects from a table or a view
 	 * @return a list with all the objects
 	 * @throws PapyrusException
 	 */
 	public LinkedList loadAll() throws PapyrusException {
+		return loadAll(true);
+	}	
+	
+	/**
+	 * Load all the objects from a table or a view
+	 * @param puseView indicate if the we use the view or not to create the query 
+	 * @return a list with all the objects
+	 * @throws PapyrusException
+	 */
+	public LinkedList loadAll(boolean puseView) throws PapyrusException {
 		logger_.debug("loadAll : begin");
 		
 		/* variable needed for SQL */ 
@@ -400,10 +465,15 @@ public class DBMappingObject {
 		LinkedList result = new LinkedList();
 		
 		/* check if there is a loadQuery to use, else construct from properties of the mapping */
-		if (null == view_)
+		if (puseView) {
+			if (null != view_)
+				query = "SELECT * FROM " + view_ + ";";
+			else {
+				logger_.debug("loadAll : no available view");
+				return null;
+			}
+		} else
 			query = "SELECT * FROM " + table_ + ";";
-		else
-			query = "SELECT * FROM " + view_ + ";";
 		
 		try {
 			connection = PapyrusDatabasePool.getInstance().getConnection();
