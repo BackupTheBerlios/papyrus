@@ -1,0 +1,21 @@
+<class name="com.papyrus.data.material.MaterialBean" table="material" view="view_material">
+	<query name="SEARCH" value="SELECT * FROM view_material @CONDITIONS@ ORDER BY id DESC" />
+	<query name="ADD" value="add_material" returnType="Integer" storedProcedure="true" />
+	<query name="UPDATE" value="update_material" returnType="Integer" storedProcedure="true" />
+	<query name="DELETE" value="delete_material" returnType="Boolean" storedProcedure="true" />
+	
+	<id name="id" column="id" type="Integer" update="1" delete="1" />
+	<property name="statusId" column="id_status" type="Short" add="1" update="2" />
+	<property name="productId" column="id_product" type="Integer" add="2" update="3" />
+	<property name="agencyId" column="id_agency" type="Integer" add="3" update="4" />
+	<property name="orderId" column="id_order" type="Integer" add="4" update="5" />
+	<property name="invoiceId" column="id_invoice" type="Integer" add="5" update="6" />
+	<property name="creditId" column="id_credit" type="Integer" add="6" update="7" />
+	<property name="sellPrice" column="sell_price" type="Float" add="7" update="8" />
+	<property name="purchasingPrice" column="purchasing_price" type="Float" add="8" update=9" />
+	<property name="customerName" column="customer_name" type="String" />
+	<property name="reference" column="reference" type="String" />
+	<property name="designation" column="designation" type="String" />
+	<property name="orderCode" column="order_code" type="String" />
+	<property name="invoiceCode" column="invoice_code" type="String" />
+</class>
