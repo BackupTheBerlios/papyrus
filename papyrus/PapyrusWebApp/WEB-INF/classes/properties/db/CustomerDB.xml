@@ -1,0 +1,21 @@
+<class name="com.eurocash.data.management.customer.CustomerBean" table="customer" view="view_customer">
+	<query name="SEARCH" value="SELECT * FROM view_customer <CONDITIONS> ORDER BY id_agency ASC, upper(last_name) ASC" />
+	<query name="ADD" value="add_customer(CAST(? AS int8), CAST(? AS int2), CAST(? AS varchar), CAST(? AS varchar), CAST(? AS varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar))" returnType="Long" storedProcedure="true" />
+	<query name="UPDATE" value="update_customer(CAST(? AS int8), CAST(? AS int8), CAST(? AS int2), CAST(? AS varchar), CAST(? AS varchar), CAST(? AS varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar))" returnType="Long" storedProcedure="true" />
+	<query name="DELETE" value="delete_customer(CAST(? AS int8))" returnType="Boolean" storedProcedure="true" />
+	
+	<id name="id" column="id" type="Integer" update="1" delete="1" />
+	<property name="code" column="customer_code" type="String" />
+	<property name="agencyId" column="id_agency" type="Integer" add="1" update="2" />
+	<property name="civilityId" column="id_civility" type="Short" add="2" update="3" />
+	<property name="civility" column="civility" type="String" />
+	<property name="lastName" column="last_name" type="String" add="3" update="4" />
+	<property name="firstName" column="first_name" type="String" add="4" update="5"/>
+	<property name="address" column="address" type="String" add="5" update="6" />
+	<property name="city" column="city" type="String" add="6" update="7" />
+	<property name="postalCode" column="postal_code" type="String" add="7" update="8" />
+	<property name="phone" column="phone" type="String" add="8" update="9" />
+	<property name="cellPhone" column="cell_phone" type="String" add="9" update="10" />
+	<property name="fax" column="fax" type="String" type="String" add="10" update="11" />
+	<property name="email" column="email" type="String" add="11" update="12" />
+</class>

@@ -1,0 +1,21 @@
+	/* Menus "Sections" - LeftNav*/
+	a.itemContent:link {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none;background-color: transparent}
+	a.itemContent:visited {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none;background-color: transparent}
+	a.itemContent:active {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none;background-color: transparent}
+	a.itemContent:hover {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none;background-color: transparent}
+	/* Menus "Sections" - LeftNav*/
+	a1.nodeContent:link {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; FONT-WEIGHT: bold}
+	a1.nodeContent:visited {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; FONT-WEIGHT: bold}
+	a1.nodeContent:active {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; FONT-WEIGHT: bold}
+	a1.nodeContent:hover {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #ffffff; text-decoration: none; FONT-WEIGHT: bold}
+
+
+	a2.nodeContent:link {FONT-FAMILY: sans-serif; FONT-SIZE: 11px;text-decoration : none}
+	a2.nodeContent:visited {FONT-FAMILY: sans-serif; FONT-SIZE: 11px;text-decoration : none}
+	a2.nodeContent:active {FONT-FAMILY: sans-serif; FONT-SIZE: 11px;text-decoration : none}
+	a2.nodeContent:hover {FONT-FAMILY: sans-serif; FONT-SIZE: 11px;text-decoration: none}
+
+	a.nodeContent:link {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; font-weight:bold;background-color: transparent}
+	a.nodeContent:visited {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; font-weight:bold;background-color: transparent}
+	a.nodeContent:active {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; font-weight:bold;background-color: transparent}
+	a.nodeContent:hover {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #ffffff; text-decoration: none; font-weight:bold;background-color: transparent}

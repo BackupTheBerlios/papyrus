@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/resin.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/webutil.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/dom.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jaxp.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jdbc2_0-stdext.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jdbc-mysql.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jmx.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jndi.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jsdk23.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/jta_101.jar"/>
+    <classpathentry kind="lib" path="/usr/local/resin/lib/sax.jar"/>
+    <classpathentry kind="lib" path="PapyrusWebApp/WEB-INF/lib/jstl.jar"/>
+    <classpathentry kind="lib" path="PapyrusWebApp/WEB-INF/lib/log4j-1.2.5.jar"/>
+    <classpathentry kind="lib" path="PapyrusWebApp/WEB-INF/lib/pg74.1jdbc3.jar"/>
+    <classpathentry kind="lib" path="PapyrusWebApp/WEB-INF/lib/rowset.jar"/>
+    <classpathentry kind="lib" path="PapyrusWebApp/WEB-INF/lib/standard.jar"/>
+    <classpathentry kind="lib" path="PapyrusWebApp/WEB-INF/lib/xalan.jar"/>
+    <classpathentry kind="output" path="PapyrusWebApp/WEB-INF/classes/"/>
+</classpath>
