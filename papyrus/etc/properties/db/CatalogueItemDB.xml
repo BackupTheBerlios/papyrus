@@ -1,0 +1,13 @@
+<class name="com.papyrus.data.material.CatalogueItemBean" table="catalogue" >
+	<query name="SEARCH" value="SELECT * FROM catalogue @CONDITIONS@ ORDER BY upper(id_brand) DESC" />
+	<query name="ADD" value="add_product" returnType="Integer" storedProcedure="true" />
+	<query name="UPDATE" value="update_product" returnType="Integer" storedProcedure="true" />
+	<query name="DELETE" value="delete_product" returnType="Boolean" storedProcedure="true" />
+	
+	<id name="id" column="id" type="Integer" update="1" delete="1" />
+	<property name="reference" column="reference" type="String" add="1" update="2" />
+	<property name="designation" column="designation" type="String" add="2" update="3" />
+	<property name="brandId" column="id_brand" type="Short" add="3" update="4" />
+	<property name="typeId" column="id_type" type="Short" add="4" update="5" />
+	<property name="categoryId" column="id_category" type="Short" add="5" update="6"/>
+</class>

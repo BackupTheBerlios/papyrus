@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<object name="CatalogueItem">
+	<action name="LIST">
+		<attribute name="reference" label="Référence" sqlName="reference" type="String" required="false" />
+		<attribute name="designation" label="Désignation" sqlName="designation" type="String" required="false" />
+		<attribute name="brandId" label="Référence" sqlName="id_brand" type="Short" required="false" ignoredValue="-1" />
+		<attribute name="categoryId" label="Catégorie" sqlName="id_category" type="Short" required="false" ignoredValue="-1" />
+	</action>
+	<action name="ADD">
+		<attribute name="reference" label="Référence" objectField="reference" type="String" required="true" />
+		<attribute name="designation" label="Désignation" objectField="designation" type="String" required="true" />
+		<attribute name="brandId" label="Référence" objectField="brandId" type="Short" required="false" ignoredValue="-1" />
+		<attribute name="categoryId" label="Catégorie" objectField="categoryId" type="Short" required="false" ignoredValue="-1" />
+		<attribute name="typeId" label="Type" objectField="typeId" type="Short" required="false" ignoredValue="-1" />
+	</action>
+	<action name="UPDATE">
+		<attribute name="id" label="id" objectField="id" type="Integer" required="true" />
+		<attribute name="reference" label="Référence" objectField="reference" type="String" required="false" />
+		<attribute name="designation" label="Désignation" objectField="designation" type="String" required="false" />
+		<attribute name="brandId" label="Référence" objectField="brandId" type="Short" required="false" ignoredValue="-1" />
+		<attribute name="categoryId" label="Catégorie" objectField="categoryId" type="Short" required="false" ignoredValue="-1" />
+		<attribute name="typeId" label="Type" objectField="typeId" type="Short" required="false" ignoredValue="-1" />
+	</action>
+</object>
