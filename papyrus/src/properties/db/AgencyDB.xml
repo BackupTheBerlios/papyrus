@@ -1,7 +1,7 @@
 <class name="com.papyrus.data.administration.agency.AgencyBean" table="agency" view="view_agency">
 	<query name="SEARCH" value="SELECT * FROM view_agency <CONDITIONS> ORDER BY upper(company) DESC" />
-	<query name="ADD" value="add_agency" returnType="Long" storedProcedure="true" />
-	<query name="UPDATE" value="update_agency" returnType="Long" storedProcedure="true" />
+	<query name="ADD" value="add_agency" returnType="Integer" storedProcedure="true" />
+	<query name="UPDATE" value="update_agency" returnType="Integer" storedProcedure="true" />
 	<query name="DELETE" value="delete_agency" returnType="Boolean" storedProcedure="true" />
 	
 	<id name="id" column="id" type="Integer" update="1" delete="1" />

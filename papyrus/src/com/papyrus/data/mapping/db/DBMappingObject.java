@@ -23,8 +23,6 @@ import java.util.Iterator;
 /**
  * @author did
  *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class DBMappingObject {
 
@@ -172,6 +170,62 @@ public class DBMappingObject {
 		return obj;
 	}
 	
+	/**
+	 * Load all the object which correspond to the query.
+	 * @param pwhere 
+	 * @return a list of objects
+	 * @throws PapyrusException
+	 */
+	public LinkedList loadByWhere(String pwhere) throws PapyrusException {
+		logger_.debug("loadByWhere : begin");
+		
+		LinkedList result = new LinkedList();
+		Collection fields = properties_.values();
+		Connection connection = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT * FROM ";
+		
+		/* create the query */
+		query += (null == view_) ? table_ : view_;
+		query += (null != pwhere) ? "WHERE " + pwhere : "";
+		
+		logger_.debug("loadByWhere : query = " + query);
+		
+		try {
+			connection = PapyrusDatabasePool.getInstance().getConnection();
+			pstmt = connection.prepareStatement(query);
+			
+			/* execute the query */
+			rs = pstmt.executeQuery();
+			
+			/* construct the list */
+			while (rs.next())
+				result.add(createNewObject(rs));
+			
+			logger_.debug("loadByWhere : end(" + result.size() + ")");
+			return result;
+		} catch (Exception e) {
+			logger_.debug("loadByWhere : Error(" + e.getMessage());
+			throw new PapyrusException(e.getMessage());
+		} finally {
+			try {
+				if (connection != null) {
+					rs.close();
+					connection.close();
+				}
+			} catch (Exception e) { }
+		}	
+	}
+			
+	
+	/**
+	 * Load all the object which correspond to the query.
+	 * @param pattributes this array contains the name of the criteria
+	 * @param pvalues this array contains the value of the criteria
+	 * @return a list of objects
+	 * @throws PapyrusException
+	 */
 	public LinkedList loadByWhere(String pattributes[], Object pvalues[]) throws PapyrusException {
 		logger_.debug("loadByWhere : begin");
 		
@@ -400,7 +454,20 @@ public class DBMappingObject {
 			Property property = (Property) fields.get(i);
 			
 			/* check the type of the column */
-			sb.append("?");
+			if ("String".equals(property.getType()))
+				sb.append("CAST(? AS varchar)");
+			else if ("Integer".equals(property.getType()))
+				sb.append("CAST(? AS int4)");
+			else if ("Short".equals(property.getType()))
+				sb.append("CAST(? AS int2)");
+			else if ("Long".equals(property.getType()))
+				sb.append("CAST(? AS int8)");
+			else if ("Boolean".equals(property.getType()))
+				sb.append("CAST(? AS bool)");
+			else if ("Date".equals(property.getType()))
+				sb.append("CAST(? AS date)");
+			else if ("Float".equals(property.getType()))
+				sb.append("CAST(? AS numeric)");
 			
 			if ((i + 1) < fields.size())
 				sb.append(", ");

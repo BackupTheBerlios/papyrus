@@ -21,7 +21,7 @@ public class CustomerBean {
 	private static Logger logger_ = Logger.getInstance(CustomerBean.class.getName());
 	
 	/** Code for the company civility */
-	public static int STE_CIVILITY = 4;
+	public static int STE_CIVILITY = 5;
 	public static int SARL_CIVILITY = 6;
 	public static int SCI_CIVILITY = 7;
 	

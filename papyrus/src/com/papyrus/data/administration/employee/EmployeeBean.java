@@ -320,11 +320,19 @@ public class EmployeeBean extends ItemBean {
 	}
 	
 	/**
-	 * The complete name
+	 * return the complete name
 	 * @return lastName + firstName with a space between
 	 */
 	public String getName() { 
-		return (lastName_ + " " + firstName_);
+		if (null != lastName_ && null != firstName_) {
+			char[] lastNameArray = lastName_.toCharArray();
+			lastNameArray[0] -= (char) 32;
+			String lastName = new String(lastNameArray);
+			
+			return (lastName + " " + firstName_.toLowerCase());
+		}
+		
+		return null;
 	}
 	
 	public String toString() {

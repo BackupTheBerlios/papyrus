@@ -29,6 +29,9 @@ public class AgenciesBean {
 	 */
 	private static Logger logger_ = Logger.getInstance(AgenciesBean.class.getName());
 
+	/** singleton */
+	private static AgenciesBean instance_ = null;
+
 	/** HaspMap containing the agency */
 	HashMap agenciesMap_ = null;
 	
@@ -40,9 +43,29 @@ public class AgenciesBean {
 		logger_.debug("AgenciesBean : begin");
 		
 		agenciesMap_ = new HashMap();
-		
+
 		logger_.debug("AgenciesBean : end");
 	}
+	
+	/** init component */
+	public static synchronized void init() throws PapyrusException {
+		logger_.debug("init : begin");
+		
+		if (null == instance_) {
+			logger_.info("init : AgenciesBean not instancied yet...");
+			instance_ = new AgenciesBean();
+		}
+		
+		logger_.debug("init : end");
+	}
+	
+	/** get the unique instance */
+	public static AgenciesBean getInstance() {
+		if (null == instance_) {
+			logger_.info("getInstance : AgenciesBean instance not created !!!");
+		}
+		return instance_;
+	}	
 	
 	/**
 	 * Load all agencies from db and store it into the local hashmap attribute

@@ -27,8 +27,6 @@ import com.papyrus.data.ItemListBean;
 import com.papyrus.common.PapyrusException;
 import com.papyrus.common.Logger;
 
-
-
 /**
  * @author did
  *
@@ -122,7 +120,7 @@ public class CatalogueItemAction implements DomainAction {
 			
 		/* if data ok and if it is the init subAction (first search), then execute the searching */
 		if (true == formBean.isDataOk() && "init".equals(subAction)) {
-			/* list of employees */
+			/* list of catalogue items */
 			catalogueItemListBean = new ItemListBean(CatalogueItemBean.class);
 				
 			DBMappingObject catalogueItemDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(CatalogueItemBean.class.getName());
@@ -143,13 +141,15 @@ public class CatalogueItemAction implements DomainAction {
 			try { pageIndex = Integer.parseInt(((String[]) pparametersMap.get("pageIndex"))[0]); }
 			catch (NumberFormatException e) { }
 				
-			/* get the employeeListBean attribute from the current session */
+			/* get the catalogueItemListBean attribute from the request */
 			catalogueItemListBean = (ItemListBean) psession.getAttribute("catalogueItemListBean");
-				
+					
 			if (null != catalogueItemListBean)
 				catalogueItemListBean.loadResultsFromPage(pageIndex);
 		}		
-		/* store in the request scope the list of customers */
+		logger_.debug("listAction : catalogueItemListBean = " + catalogueItemListBean); 	
+			
+		/* store in the request scope the list of items */
 		psession.setAttribute("catalogueItemListBean", catalogueItemListBean);
 						
 		logger_.debug("listAction : end");
@@ -189,7 +189,7 @@ public class CatalogueItemAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -203,7 +203,7 @@ public class CatalogueItemAction implements DomainAction {
 				CatalogueItemBean catalogueItemBean = (CatalogueItemBean) formBean.createNewObject(CatalogueItemBean.class);
 			
 				/* insert catalogue item to the database */
-				queryResult = ((Long) catalogueItemDBMappingObject.add(catalogueItemBean)).longValue();
+				queryResult = ((Integer) catalogueItemDBMappingObject.add(catalogueItemBean)).intValue();
 		
 				logger_.debug("addAction : catalogue = " + catalogueItemBean.toString());
 			} else
@@ -256,7 +256,7 @@ public class CatalogueItemAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -271,7 +271,7 @@ public class CatalogueItemAction implements DomainAction {
 				CatalogueItemBean catalogueItemBean = (CatalogueItemBean) formBean.createNewObject(CatalogueItemBean.class);
 			
 				/* insert catalogue item to the database */
-				queryResult = ((Long) catalogueItemDBMappingObject.update(catalogueItemBean)).longValue();
+				queryResult = ((Integer) catalogueItemDBMappingObject.update(catalogueItemBean)).intValue();
 			} else
 				url = "/material/catalogueItemUpdate.jsp";
 		}

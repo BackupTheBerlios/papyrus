@@ -1,8 +1,8 @@
 <class name="com.papyrus.data.administration.employee.EmployeeBean" table="employee" view="view_employee">
 	<query name="SEARCH" value="SELECT * FROM view_employee <CONDITIONS> ORDER BY &quot;agencyId&quot; ASC, upper(&quot;lastName&quot;) ASC" />
-	<query name="ADD" value="add_employee(CAST(? AS int8), CAST(? AS int2), CAST(? AS varchar), CAST(? AS varchar), CAST(? AS varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? AS varchar), CAST(? AS int2))" returnType="Long" storedProcedure="true" />
-	<query name="UPDATE" value="update_employee(CAST(? AS int8), CAST(? AS int8), CAST(? AS int2), CAST(? AS varchar), CAST(? AS varchar), CAST(? AS varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? AS varchar), CAST(? AS int2))" returnType="Long" storedProcedure="true" />
-	<query name="DELETE" value="delete_employee(CAST(? AS int8))" returnType="Boolean" storedProcedure="true" />
+	<query name="ADD" value="add_employee" returnType="Integer" storedProcedure="true" />
+	<query name="UPDATE" value="update_employee" returnType="Integer" storedProcedure="true" />
+	<query name="DELETE" value="delete_employee" returnType="Boolean" storedProcedure="true" />
 	
 	<id name="id" column="id" type="Integer" update="1" delete="1" />
 	<property name="agencyId" column="agencyId" type="Integer" add="1" update="2" />

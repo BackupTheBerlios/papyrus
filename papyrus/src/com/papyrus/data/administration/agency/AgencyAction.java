@@ -201,7 +201,7 @@ public class AgencyAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -215,7 +215,7 @@ public class AgencyAction implements DomainAction {
 				AgencyBean agencyBean = (AgencyBean) formBean.createNewObject(AgencyBean.class);
 			
 				/* insert agency to the database */
-				queryResult = ((Long) agencyDBMappingObject.add(agencyBean)).longValue();
+				queryResult = ((Integer) agencyDBMappingObject.add(agencyBean)).intValue();
 			
 				logger_.debug("addAction : agency = " + agencyBean.toString());
 			} else
@@ -268,7 +268,7 @@ public class AgencyAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -282,7 +282,7 @@ public class AgencyAction implements DomainAction {
 				AgencyBean agencyBean = (AgencyBean) formBean.createNewObject(AgencyBean.class);
 			
 				/* update agency to the database */
-				queryResult = ((Long) agencyDBMappingObject.update(agencyBean)).longValue();
+				queryResult = ((Integer) agencyDBMappingObject.update(agencyBean)).intValue();
 					
 				logger_.debug("updateAction : agency = " + agencyBean.toString());
 			} else

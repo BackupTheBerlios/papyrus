@@ -53,7 +53,7 @@ public class ItemListBean {
 	/**
 	 * Number of lines per page.
 	 */
-	private int maxLinesPerPage_ = 10;
+	private int maxLinesPerPage_ = 20;
 	
 	/**
 	 * Index of the current results page 

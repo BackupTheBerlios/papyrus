@@ -1,7 +1,7 @@
 <class name="com.papyrus.data.management.customer.CustomerBean" table="customer" view="view_customer">
 	<query name="SEARCH" value="SELECT * FROM view_customer <CONDITIONS> ORDER BY id_agency ASC, upper(last_name) ASC" />
-	<query name="ADD" value="add_customer" returnType="Long" storedProcedure="true" />
-	<query name="UPDATE" value="update_customer" returnType="Long" storedProcedure="true" />
+	<query name="ADD" value="add_customer" returnType="Integer" storedProcedure="true" />
+	<query name="UPDATE" value="update_customer" returnType="Integer" storedProcedure="true" />
 	<query name="DELETE" value="delete_customer" returnType="Boolean" storedProcedure="true" />
 	
 	<id name="id" column="id" type="Integer" update="1" delete="1" />

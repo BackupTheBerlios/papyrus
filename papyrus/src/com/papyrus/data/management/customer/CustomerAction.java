@@ -189,7 +189,7 @@ public class CustomerAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -203,7 +203,7 @@ public class CustomerAction implements DomainAction {
 				CustomerBean customerBean = (CustomerBean) formBean.createNewObject(CustomerBean.class);
 			
 				/* insert customer to the database */
-				queryResult = ((Long) customerDBMappingObject.add(customerBean)).longValue();
+				queryResult = ((Integer) customerDBMappingObject.add(customerBean)).intValue();
 		
 				logger_.debug("addAction : customer = " + customerBean.toString());
 			} else
@@ -256,7 +256,7 @@ public class CustomerAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -271,7 +271,7 @@ public class CustomerAction implements DomainAction {
 				CustomerBean customerBean = (CustomerBean) formBean.createNewObject(CustomerBean.class);
 			
 				/* insert customer to the database */
-				queryResult = ((Long) customerDBMappingObject.update(customerBean)).longValue();
+				queryResult = ((Integer) customerDBMappingObject.update(customerBean)).intValue();
 			} else
 				url = "/management/customerUpdate.jsp";
 		}

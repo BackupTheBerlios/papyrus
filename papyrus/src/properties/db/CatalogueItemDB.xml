@@ -1,7 +1,7 @@
 <class name="com.papyrus.data.material.CatalogueItemBean" table="catalogue" >
 	<query name="SEARCH" value="SELECT * FROM catalogue <CONDITIONS> ORDER BY upper(id_brand) DESC" />
-	<query name="ADD" value="add_product" returnType="Long" storedProcedure="true" />
-	<query name="UPDATE" value="update_product" returnType="Long" storedProcedure="true" />
+	<query name="ADD" value="add_product" returnType="Integer" storedProcedure="true" />
+	<query name="UPDATE" value="update_product" returnType="Integer" storedProcedure="true" />
 	<query name="DELETE" value="delete_product" returnType="Boolean" storedProcedure="true" />
 	
 	<id name="id" column="id" type="Integer" update="1" delete="1" />

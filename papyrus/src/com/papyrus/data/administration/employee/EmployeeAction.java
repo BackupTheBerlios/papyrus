@@ -118,7 +118,6 @@ public class EmployeeAction implements DomainAction {
 		else
 			formBean.reset();
 			
-//		formBean.init("Employee", "LIST");
 		formBean.setData(pparametersMap);
 			
 		/* if data ok and if it is the init subAction (first search), then execute the searching */
@@ -126,7 +125,6 @@ public class EmployeeAction implements DomainAction {
 			/* list of employees */
 			employeeListBean = new ItemListBean(EmployeeBean.class);
 				
-//			employeeListBean.search(EmployeeUtility.constructSearchQuery(formBean), formBean.toLinkedList());
 			DBMappingObject employeeDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(EmployeeBean.class.getName());
 				
 			logger_.debug("listAction : employeeDBMappingObject = " + employeeDBMappingObject);
@@ -198,7 +196,7 @@ public class EmployeeAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -212,7 +210,7 @@ public class EmployeeAction implements DomainAction {
 				EmployeeBean employeeBean = (EmployeeBean) formBean.createNewObject(EmployeeBean.class);
 			
 				/* insert employee to the database */
-				queryResult = ((Long) employeeDBMappingObject.add(employeeBean)).longValue();
+				queryResult = ((Integer) employeeDBMappingObject.add(employeeBean)).intValue();
 			
 				if (EMPLOYEE_DUPLICATED_LOGIN == queryResult) {
 					formBean.setErrorFields("login", "login déjà utilisé");
@@ -271,7 +269,7 @@ public class EmployeeAction implements DomainAction {
 		
 		/* insert subAction */
 		if ("ok".equals(subAction)) {
-			long queryResult;
+			int queryResult;
 			
 			/* reset the associated form bean and setup it with the current form */
 			if (null != formBean)
@@ -286,7 +284,7 @@ public class EmployeeAction implements DomainAction {
 				EmployeeBean employeeBean = (EmployeeBean) formBean.createNewObject(EmployeeBean.class);
 			
 				/* insert employee to the database */
-				queryResult = ((Long) employeeDBMappingObject.update(employeeBean)).longValue();
+				queryResult = ((Integer) employeeDBMappingObject.update(employeeBean)).intValue();
 			
 				if (EMPLOYEE_DUPLICATED_LOGIN == queryResult) {
 					formBean.setErrorFields("login", "login déjà utilisé");
