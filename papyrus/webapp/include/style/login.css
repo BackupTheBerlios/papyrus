@@ -1,0 +1,138 @@
+body {
+	margin: 0; 
+	text-align: center;
+}
+
+.loginContainer {
+	top: 50px;
+	position: relative;
+	margin-left: auto;
+    margin-right: auto;
+	height: 280px;
+	width: 370px;
+	color: #ffffff;
+	background-color: #c1c1c1;
+	
+	border: 1px;
+	border-style: solid;
+	border-color: #000000; 
+}
+
+.loginTitle {
+	position: absolute;
+	top: 0px;
+	height: 48px;
+	width: 100%;
+	padding-top: 10px;
+	background-image: url(/include/pictures/header_motif.png);
+  	background-position: top;
+  	background-repeat: repeat-x, repeat-y;
+}
+
+.loginLogo {
+	float: left; 
+	margin-left: 10px;  
+	margin-top: 3px;
+	border: 0;
+}
+
+.loginBody {
+	position: absolute;
+	top: 58px;
+	background-color: #c1c1c1;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+}
+
+.loginBody input {
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+	border: 1px;
+	border-style: solid;
+	border-color: #000000;
+}
+
+.loginAuthenticate {
+	float: left;
+	width: 350px;
+	margin-top: 15px;
+	margin-left: 0px;
+	font-size: 14px; 
+	color: #ffffff ; 
+	font-weight: bold; 
+	text-transform: uppercase;
+	text-align: left;
+}
+
+.loginIcon {
+	float: left; 
+	margin-left: 30px; 
+	margin-right: 46px;
+	margin-top: 0px;
+	border: 0;
+}
+
+.loginError {
+	float: left;
+	width: 100%;
+	margin-top: 10px;
+	margin-left: 113px;
+	text-align: left;
+	font-size: 12px; 
+	font-weight: bold; 
+	color: #ff0000;
+}
+
+.loginBox {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	float: left;
+	width: 240px;
+	margin-top: 12px;
+	margin-left: 70px;
+	color: #FFFFFF;
+	font-size: 11px; 
+}
+
+.loginField {
+	float: left;
+	width: 100px;
+	text-align: left;
+	padding-top: 2px;
+	font-weight: bold; 
+}
+
+.loginInput {
+	float: left;
+	width: 100px;
+	text-align: left;
+}
+
+.loginButton {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	float: left;
+	width: 240px;
+	margin-top: 28px;
+	margin-left: 70px;
+	color: #FFFFFF;
+	font-size: 12px; 
+	text-align: center;
+}
+
+.loginButton a.classicButtonGreen {
+	height: 29px;
+	color: white;
+  	background-color: #2ba405;
+  	text-decoration: none;
+  	font-family: Verdana, Arial, Helvetica, sans-serif; 
+  	font-weight: bold;
+  	text-align: center;
+  	font-size: 12px; 
+  	background-image: url(/include/pictures/button_background_green.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	border: 1px outset #898989;
+	padding: 2px;
+	cursor: hand;
+}
+
