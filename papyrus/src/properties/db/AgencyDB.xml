@@ -1,4 +1,4 @@
-<class name="com.eurocash.data.administration.agency.AgencyBean" table="agency" view="view_agency">
+<class name="com.papyrus.data.administration.agency.AgencyBean" table="agency" view="view_agency">
 	<query name="SEARCH" value="SELECT * FROM view_agency <CONDITIONS> ORDER BY upper(company) DESC" />
 	<query name="ADD" value="add_agency" returnType="Long" storedProcedure="true" />
 	<query name="UPDATE" value="update_agency" returnType="Long" storedProcedure="true" />
@@ -6,7 +6,7 @@
 	
 	<id name="id" column="id" type="Integer" update="1" delete="1" />
 	<property name="employeeLeaderId" column="id_user_leader" type="Integer" add="1" update="2" />
-	<property name="parentCompany" column="parent_company" type="Short" add="2" update="3" />
+	<property name="parentCompany" column="parent_company" type="Boolean" add="2" update="3" />
 	<property name="nbEmployees" column="nb_employee" type="Integer" />
 	<property name="customerCode" column="customer_code" type="String" add="3" update="4" />
 	<property name="billCode" column="bill_code" type="String" add="4" update="5"/>

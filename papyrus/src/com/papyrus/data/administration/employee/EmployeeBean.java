@@ -319,6 +319,14 @@ public class EmployeeBean extends ItemBean {
 		civilityId_ = pcivilityId;
 	}
 	
+	/**
+	 * The complete name
+	 * @return lastName + firstName with a space between
+	 */
+	public String getName() { 
+		return (lastName_ + " " + firstName_);
+	}
+	
 	public String toString() {
 		return (agencyId_ + ", " +
 				civilityId_ + ", " +

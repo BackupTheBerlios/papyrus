@@ -185,14 +185,16 @@ public class NumberField extends Field {
 				}
 			}
 		} else {
-			if ("Long".equals(type_))
-				result = new Long(pstringValue);
-			if ("Integer".equals(type_))
-				result = new Integer(pstringValue);
-			if ("Short".equals(type_))
-				result = new Short(pstringValue);
-			if ("Float".equals(type_))
-				result = new Float(pstringValue);
+			try {
+				if ("Long".equals(type_))
+					result = new Long(pstringValue);
+				if ("Integer".equals(type_))
+					result = new Integer(pstringValue);
+				if ("Short".equals(type_))
+					result = new Short(pstringValue);
+				if ("Float".equals(type_))
+					result = new Float(pstringValue);
+			} catch (NumberFormatException e) { logger_.debug("getValue : '" + pstringValue + "' is not a correct number"); } 
 		}
 			
 		logger_.debug("getValue : end(" + result + ")");

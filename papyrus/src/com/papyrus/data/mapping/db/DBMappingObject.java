@@ -172,6 +172,97 @@ public class DBMappingObject {
 		return obj;
 	}
 	
+	public LinkedList loadByWhere(String pattributes[], Object pvalues[]) throws PapyrusException {
+		logger_.debug("loadByWhere : begin");
+		
+		LinkedList result = new LinkedList();
+		Collection fields = properties_.values();
+		Connection connection = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT * FROM ";
+		
+		/* create the query */
+		query += (null == view_) ? table_ : view_;
+		
+		if (0 != pattributes.length && pattributes.length == pvalues.length) {
+			query += " WHERE ";
+			
+			for (int i = 0; i < pattributes.length; i++) {
+				/* find the associated property */
+				Property property = (Property) properties_.get(pattributes[i]);
+				
+				if (null != property) {
+					query += "\"" + property.getColumn() + "\" = ? ";
+					if ((i + 1) != pattributes.length) 
+						query += "AND ";
+				}
+			}
+		}
+		logger_.debug("loadByWhere : query = " + query);
+		
+		try {
+			connection = PapyrusDatabasePool.getInstance().getConnection();
+			pstmt = connection.prepareStatement(query);
+			
+			/* set the values */
+			if (0 != pattributes.length && pattributes.length == pvalues.length) 
+				for (int i = 0; i < pattributes.length; i++) {
+					/* find the associated property */
+					Property property = (Property) properties_.get(pattributes[i]);
+					Object value = pvalues[i];
+					
+					/* String Object */
+					if (value instanceof java.lang.String)
+						pstmt.setString(i + 1, (String) value);
+						
+					/* Short */
+					if (value instanceof java.lang.Short)
+						pstmt.setShort(i + 1, ((Short) value).shortValue());	
+						
+					/* Integer */
+					if (value instanceof java.lang.Integer)
+						pstmt.setInt(i + 1, ((Integer) value).intValue());
+						
+					/* Long */
+					if (value instanceof java.lang.Long)
+						pstmt.setLong(i + 1, ((Long) value).longValue());
+						
+					/* Float */
+					if (value instanceof java.lang.Float)
+						pstmt.setFloat(i + 1, ((Float) value).floatValue());
+						
+					/* Boolean */
+					if (value instanceof java.lang.Boolean)
+						pstmt.setBoolean(i + 1, ((Boolean) value).booleanValue());
+						
+					/* Date */
+					if (value instanceof java.util.Date)
+						pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) value).getTime()));
+				}
+			
+			/* execute the query */
+			rs = pstmt.executeQuery();
+			
+			/* construct the list */
+			while (rs.next())
+				result.add(createNewObject(rs));
+			
+			logger_.debug("loadByWhere : end(" + result.size() + ")");
+			return result;
+		} catch (Exception e) {
+			logger_.debug("loadByWhere : Error(" + e.getMessage());
+			throw new PapyrusException(e.getMessage());
+		} finally {
+			try {
+				if (connection != null) {
+					rs.close();
+					connection.close();
+				}
+			} catch (Exception e) { }
+		}	
+	}
+	
 	/**
 	 * Load from the database the object from an unique id
 	 * @param pid the identifier in the database of the object
@@ -188,7 +279,7 @@ public class DBMappingObject {
 		String query = null;
 		Object result = null;
 		
-		/* check if there is a loadQuery to use, else construct from properties of the mapping */
+		/* check if there is a view to use */
 		if (null == view_)
 			query = "SELECT * FROM " + table_ + " WHERE " + id_.getName() + " = ?;";
 		else
@@ -296,27 +387,33 @@ public class DBMappingObject {
 	public String constructCallQuery(String ptype) {
 		logger_.debug("constructCallQuery : begin");
 		
-		LinkedList fields = getPropertiesSortedList(ptype);
-		StringBuffer sb = new StringBuffer(((Query) queriesMap_.get(ptype)).getStoredProcedure());
+		try {
+			LinkedList fields = getPropertiesSortedList(ptype);
+			StringBuffer sb = new StringBuffer(((Query) queriesMap_.get(ptype)).getStoredProcedure());
 		
 		sb.append("(");
 		
 		/* create the query from the position indicated
 		 * into each column 
 		 */
-		for (Iterator i = fields.iterator(); i.hasNext(); i.next()) {
-			Property property = (Property) i;
+		for (int i = 0; i < fields.size(); i++) {
+			Property property = (Property) fields.get(i);
 			
 			/* check the type of the column */
 			sb.append("?");
 			
-			if (i.hasNext())
+			if ((i + 1) < fields.size())
 				sb.append(", ");
 		}
 		
-		sb.append(")");
+		sb.append(") }");
 		logger_.debug("constructCallQuery : end(" + sb.toString() + ")");
-		return sb.toString();
+				return sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger_.debug("constructCallQuery : ERROR = " + e.getMessage());
+		}
+		return null;
 	}
 	
 	/**
@@ -990,6 +1087,7 @@ public class DBMappingObject {
 	 * @return
 	 */
 	public Property getProperty(String ptype, int pposition) {
+		logger_.debug("getProperty : begin (" + ptype + ", " + pposition + ")");
 		Collection fields = properties_.values();
 		
 		for (Iterator i = fields.iterator(); i.hasNext();) {
@@ -1008,6 +1106,7 @@ public class DBMappingObject {
 							return property;
 					}
 		}
+		logger_.debug("getProperty : end (null)"); 
 		return null;
 	}
 	
@@ -1051,13 +1150,19 @@ public class DBMappingObject {
 	 * @return a sorted list
 	 */
 	public LinkedList getPropertiesSortedList(String ptype) {
-		LinkedList result = new LinkedList();
-		Property property = null;
-		int position = 1;
+		logger_.debug("getPropertiesSortedList : begin (" + ptype + ")");
 		
-		for (property = getProperty(ptype, position); property != null; property = getProperty(ptype, ++position)) 
+		LinkedList result = new LinkedList();
+		int position = 1;
+		Property property = getProperty(ptype, position);
+		
+		while (null != property) {
 			result.add(property);
+			position++;
+			property = getProperty(ptype, position);
+		}
 			
+		logger_.debug("getPropertiesSortedList : end (" + result.size() + ")");
 		return result;	
 	}
 }

@@ -9,7 +9,10 @@ package com.papyrus.data.administration.agency;
 
 import com.papyrus.common.Logger;
 import com.papyrus.common.PapyrusException;
-import com.papyrus.data.*;
+//import com.papyrus.data.*;
+import com.papyrus.data.administration.employee.EmployeeUtility;
+import com.papyrus.data.mapping.db.DBMappingFactory;
+import com.papyrus.data.mapping.db.DBMappingObject;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -48,12 +51,18 @@ public class AgenciesBean {
 		logger_.debug("load : begin");
 		
 		/* get the list */
-		ItemBeanFactory agencyBeanFactory = new ItemBeanFactory(AgencyBean.class);
-		agenciesList_ = agencyBeanFactory.loadAll(AgencyUtility.SEARCH_ALL_SQL_QUERY);
+		DBMappingObject agencyDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(AgencyBean.class.getName());
+		agenciesList_ = agencyDBMappingObject.loadAll();
 		
+//		ItemBeanFactory agencyBeanFactory = new ItemBeanFactory(AgencyBean.class);
+//		agenciesList_ = agencyBeanFactory.loadAll(AgencyUtility.SEARCH_ALL_SQL_QUERY);
+//		
 		/* loop the list and create an entry in the hashmap with the id for the key and the bean for value */
 		for (int i = 0; i < agenciesList_.size(); i++) {
 			AgencyBean agencyBean = (AgencyBean) agenciesList_.get(i);
+			
+			/* load all the employees of this agency */
+			agencyBean.setEmployeesList(EmployeeUtility.loadByAgency(agencyBean.getId()));
 			
 			agenciesMap_.put(new Integer(agencyBean.getId()), agencyBean);
 		}

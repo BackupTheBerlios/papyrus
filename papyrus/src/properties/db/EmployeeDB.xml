@@ -1,4 +1,4 @@
-<class name="com.eurocash.data.administration.employee.EmployeeBean" table="employee" view="view_employee">
+<class name="com.papyrus.data.administration.employee.EmployeeBean" table="employee" view="view_employee">
 	<query name="SEARCH" value="SELECT * FROM view_employee <CONDITIONS> ORDER BY &quot;agencyId&quot; ASC, upper(&quot;lastName&quot;) ASC" />
 	<query name="ADD" value="add_employee(CAST(? AS int8), CAST(? AS int2), CAST(? AS varchar), CAST(? AS varchar), CAST(? AS varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? AS varchar), CAST(? AS int2))" returnType="Long" storedProcedure="true" />
 	<query name="UPDATE" value="update_employee(CAST(? AS int8), CAST(? AS int8), CAST(? AS int2), CAST(? AS varchar), CAST(? AS varchar), CAST(? AS varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? as varchar), CAST(? AS varchar), CAST(? AS int2))" returnType="Long" storedProcedure="true" />

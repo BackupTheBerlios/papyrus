@@ -196,7 +196,7 @@ public class ItemListBean {
 						
 					/* Date */
 					if (value instanceof java.util.Date)
-						pstmt.setDate(index, (Date) value);
+						pstmt.setDate(index, new java.sql.Date(((java.util.Date) value).getTime()));
 					
 					index++;	
 				}

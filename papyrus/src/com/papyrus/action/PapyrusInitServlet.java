@@ -193,17 +193,6 @@ public class PapyrusInitServlet extends HttpServlet {
 				logger_.debug("loadConfig : menu OK");
 			}
 			
-			/* Agency List */
-			if (null == application.getAttribute("agenciesBean")) {
-				AgenciesBean agenciesBean = new AgenciesBean();
-				
-				/* load all the agencies */
-				agenciesBean.load();
-				
-				application.setAttribute("agenciesBean", agenciesBean);
-				logger_.debug("loadConfig : agenciesBean OK");
-			}
-			
 			/* Type list */
 			if (null == application.getAttribute("typeListBean")) {
 				TypeListBean typeListBean = new TypeListBean();
@@ -232,6 +221,17 @@ public class PapyrusInitServlet extends HttpServlet {
 			SecurityFactory.init();
 			SecurityFactory.addFile("/properties/Security.xml");
 			logger_.debug("loadConfig: SecurityAction OK");
+			
+			/* Agency List */
+			if (null == application.getAttribute("agenciesBean")) {
+				AgenciesBean agenciesBean = new AgenciesBean();
+				
+				/* load all the agencies */
+				agenciesBean.load();
+				
+				application.setAttribute("agenciesBean", agenciesBean);
+				logger_.debug("loadConfig : agenciesBean OK");
+			}
 			
 		} catch (PapyrusException e) { throw new PapyrusException(e.getMessage()); }
 		

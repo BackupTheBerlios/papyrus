@@ -8,6 +8,8 @@
   
 package com.papyrus.data.administration.agency;
 
+import java.util.LinkedList;
+
 import com.papyrus.common.*;
 import com.papyrus.data.*;
 
@@ -24,25 +26,25 @@ public class AgencyBean extends ItemBean {
 	 */
 	private static Logger logger_ = Logger.getInstance(AgencyBean.class.getName());
 
-	/** Identitfiant de l'agence */
+	/** id of this agency */
 	public int id_ = 0; 
 	
- 	/** Identifiant du responsable d'agence */
+ 	/** id of the employee leader */
 	public int employeeLeaderId_ = 0;
 	
-	/** Nom */
+	/** Name of the agency */
 	public String company_ = null;
 	
-	/** Adresse */
+	/** Address */
 	public String address_ = null;
 	
-	/** Ville */
+	/** City */
 	public String city_ = null;
 	
-	/** Code Postal */
+	/** Postal Code */
 	public String postalCode_ = null;
 	
-	/** Telephone */
+	/** Phone */
 	public String phone_ = null;
 	
 	/** Fax */
@@ -51,22 +53,25 @@ public class AgencyBean extends ItemBean {
 	/** Email */
 	public String email_ = null;
 
-	/** Nb d'employes */
+	/** Number of employees */
 	public int nbEmployees_ = 0;
 	
-	/** Code Client: partie compta */
+	/** Customer code */
 	public String customerCode_ = null;
 	
-	/** Code Facture: partie compta */
+	/** Bill code */
 	public String billCode_ = null;
 	
-	/** Code Agence: partie compta */
+	/** Agency code */
 	public String agencyCode_ = null;
 	
-	/** Maison mere */
+	/** Is the parent company */
 	public boolean  parentCompany_ = false;;
 	
-	/* constructeurs */
+	/** List of employees of this agency */
+	private LinkedList employeesList_ = null; 
+	
+	/* default constructor */
 	public AgencyBean() {
 		logger_.debug("AgencyBean : begin(default constructor)");
 
@@ -200,6 +205,20 @@ public class AgencyBean extends ItemBean {
 	 */
 	public void setPostalCode(String string) {
 		postalCode_ = string;
+	}
+
+	/**
+	 * @return
+	 */
+	public LinkedList getEmployeesList() {
+		return employeesList_;
+	}
+
+	/**
+	 * @param list
+	 */
+	public void setEmployeesList(LinkedList list) {
+		employeesList_ = list;
 	}
 
 }

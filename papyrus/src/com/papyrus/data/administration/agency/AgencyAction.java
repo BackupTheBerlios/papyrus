@@ -119,15 +119,13 @@ public class AgencyAction implements DomainAction {
 		else
 			formBean.reset();
 			
-//		formBean.init("Employee", "LIST");
 		formBean.setData(pparametersMap);
 			
 		/* if data ok and if it is the init subAction (first search), then execute the searching */
 		if (true == formBean.isDataOk() && "init".equals(subAction)) {
-			/* list of employees */
+			/* list of agencies */
 			agencyListBean = new ItemListBean(AgencyBean.class);
 				
-//			employeeListBean.search(EmployeeUtility.constructSearchQuery(formBean), formBean.toLinkedList());
 			DBMappingObject agencyDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(AgencyBean.class.getName());
 				
 			logger_.debug("listAction : agencyDBMappingObject = " + agencyDBMappingObject);
@@ -148,7 +146,7 @@ public class AgencyAction implements DomainAction {
 			try { pageIndex = Integer.parseInt(((String[]) pparametersMap.get("pageIndex"))[0]); }
 			catch (NumberFormatException e) { }
 				
-			/* get the employeeListBean attribute from the current session */
+			/* get the agencyListBean attribute from the current session */
 			agencyListBean = (ItemListBean) psession.getAttribute("agencyListBean");
 				
 			if (null != agencyListBean)
@@ -179,22 +177,22 @@ public class AgencyAction implements DomainAction {
 		logger_.debug("addAction : begin");
 		
 		String subAction = ((String[]) pparametersMap.get("subAction"))[0];
-		String url = "/administration/employeeList.jsp";
+		String url = "/DomainActionServlet?domain=agency&action=list&subAction=init";
 		
 		/* reset the associated form bean and setup it with the current form */
-		FormMappingObject formBean = (FormMappingObject) psession.getAttribute("employeeAddForm");
-		DBMappingObject employeeDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(EmployeeBean.class.getName());
+		FormMappingObject formBean = (FormMappingObject) psession.getAttribute("agencyAddForm");
+		DBMappingObject agencyDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(AgencyBean.class.getName());
 		
 		/* init subAction */
 		if ("init".equals(subAction)) {
 			if (null == formBean) {
-				formBean = FormMappingFactory.getInstance().getFormMappingObject("Employee", "ADD");
-				psession.setAttribute("employeeAddForm", formBean);
+				formBean = FormMappingFactory.getInstance().getFormMappingObject("Agency", "ADD");
+				psession.setAttribute("agencyAddForm", formBean);
 			}
 			else
 				formBean.reset();	
 			
-			url = "/administration/employeeAdd.jsp";
+			url = "/administration/agencyAdd.jsp";
 		}
 		
 		/* insert subAction */
@@ -209,21 +207,15 @@ public class AgencyAction implements DomainAction {
 			logger_.debug("addAction: formBean error ??? = " + formBean.getErrorMessage());
 			
 			if (formBean.isDataOk()) {
-				/* create the employee and fill data with the form */
-				EmployeeBean employeeBean = (EmployeeBean) formBean.createNewObject(EmployeeBean.class);
+				/* create the agency and fill data with the form */
+				AgencyBean agencyBean = (AgencyBean) formBean.createNewObject(AgencyBean.class);
 			
-				/* insert employee to the database */
-				queryResult = ((Long) employeeDBMappingObject.add(employeeBean)).longValue();
+				/* insert agency to the database */
+				queryResult = ((Long) agencyDBMappingObject.add(agencyBean)).longValue();
 			
-				if (EMPLOYEE_DUPLICATED_LOGIN == queryResult) {
-					formBean.setErrorFields("login", "login déjà utilisé");
-					url = "/administration/employeeAdd.jsp";
-				} else
-					url = "/DomainActionServlet?domain=employee&action=list&subAction=init";
-				
-				logger_.debug("addAction : employee = " + employeeBean.toString());
+				logger_.debug("addAction : agency = " + agencyBean.toString());
 			} else
-				url = "/administration/employeeAdd.jsp";
+				url = "/administration/agencyAdd.jsp";
 		} 
 		
 		logger_.debug("addAction : end(" + url + ")");
@@ -232,7 +224,7 @@ public class AgencyAction implements DomainAction {
 
 
 	/**
-	 * Update an employee to the DB
+	 * Update an agency to the DB
 	 * @param psession
 	 * @param pparametersMap contains all the attributes of the form
 	 * @return the target url after processing
@@ -244,30 +236,30 @@ public class AgencyAction implements DomainAction {
 		logger_.debug("updateAction : begin");
 		
 		String subAction = ((String[]) pparametersMap.get("subAction"))[0];
-		String url = "/administration/employeeList.jsp";
+		String url = "/DomainActionServlet?domain=agency&action=list&subAction=init";
 		
 		/* reset the associated form bean and setup it with the current form */
-		FormMappingObject formBean = (FormMappingObject) psession.getAttribute("employeeUpdateForm");
-		DBMappingObject employeeDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(EmployeeBean.class.getName());
+		FormMappingObject formBean = (FormMappingObject) psession.getAttribute("agencyUpdateForm");
+		DBMappingObject agencyDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(AgencyBean.class.getName());
 		
 		/* init subAction */
 		if ("init".equals(subAction)) {
-			Integer employeeId = new Integer(((String[]) pparametersMap.get("id"))[0]);
+			Integer agencyId = new Integer(((String[]) pparametersMap.get("id"))[0]);
 			
 			if (null == formBean) {
-				formBean = FormMappingFactory.getInstance().getFormMappingObject("Employee", "UPDATE");
+				formBean = FormMappingFactory.getInstance().getFormMappingObject("Agency", "UPDATE");
 				
-				psession.setAttribute("employeeUpdateForm", formBean);
+				psession.setAttribute("agencyUpdateForm", formBean);
 			}
 			else
 				formBean.reset();	
 			
-			/* load the employee */
-			EmployeeBean employee = (EmployeeBean) employeeDBMappingObject.load(employeeId);
+			/* load the agency */
+			AgencyBean agency = (AgencyBean) agencyDBMappingObject.load(agencyId);
 			/* and fill it in a formBean */
-			formBean.setData(employee);
+			formBean.setData(agency);
 				
-			url = "/administration/employeeUpdate.jsp";
+			url = "/administration/agencyUpdate.jsp";
 		}
 		
 		/* insert subAction */
@@ -279,25 +271,18 @@ public class AgencyAction implements DomainAction {
 				formBean.reset();
 			
 			formBean.setData(pparametersMap);
+			logger_.debug("updateAction: formBean error ??? = " + formBean.getErrorMessage());
 			
-			if (formBean.isDataOk()) {
-				logger_.debug("updateAction: formBean error ??? = " + formBean.getErrorMessage());
+			if (formBean.isDataOk()) {	
+				/* create the agency and fill data with the form */
+				AgencyBean agencyBean = (AgencyBean) formBean.createNewObject(AgencyBean.class);
 			
-				/* create the employee and fill data with the form */
-				EmployeeBean employeeBean = (EmployeeBean) formBean.createNewObject(EmployeeBean.class);
-			
-				/* insert employee to the database */
-				queryResult = ((Long) employeeDBMappingObject.update(employeeBean)).longValue();
-			
-				if (EMPLOYEE_DUPLICATED_LOGIN == queryResult) {
-					formBean.setErrorFields("login", "login déjà utilisé");
-					url = "/administration/employeeUpdate.jsp";
-				} else
-					url = "/DomainActionServlet?domain=employee&action=list&subAction=init";
+				/* update agency to the database */
+				queryResult = ((Long) agencyDBMappingObject.update(agencyBean)).longValue();
 					
-				logger_.debug("updateAction : employee = " + employeeBean.toString());
+				logger_.debug("updateAction : agency = " + agencyBean.toString());
 			} else
-				url = "/administration/employeeUpdate.jsp";
+				url = "/administration/agencyUpdate.jsp";
 		}
 		
 		logger_.debug("updateAction : end(" + url + ")");
@@ -305,7 +290,7 @@ public class AgencyAction implements DomainAction {
 	}
 	
 	/**
-	 * Delete an employee in the DB
+	 * Delete an agency in the DB
 	 * @param psession
 	 * @param pparametersMap contains all the attributes of the form
 	 * @return the target url after processing
@@ -317,22 +302,22 @@ public class AgencyAction implements DomainAction {
 		logger_.debug("deleteAction : begin");
 		
 		String subAction = ((String[]) pparametersMap.get("subAction"))[0];
-		String url = "/DomainActionServlet?domain=employee&action=list&subAction=init";
+		String url = "/DomainActionServlet?domain=agency&action=list&subAction=init";
 		
-		/* subAction : delete one employee */
+		/* subAction : delete one agency */
 		if ("one".equals(subAction)) {
-			Integer employeeId = new Integer(((String[]) pparametersMap.get("id"))[0]);
+			Integer agencyId = new Integer(((String[]) pparametersMap.get("id"))[0]);
 			
 			/* check if the id is correct */
-			if (null != employeeId) {
+			if (null != agencyId) {
 				Object result = null;
 				
-				EmployeeBean employee = new EmployeeBean();
-				employee.setId(employeeId.intValue());
-				DBMappingObject employeeDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(EmployeeBean.class.getName());
+				AgencyBean agency = new AgencyBean();
+				agency.setId(agencyId.intValue());
+				DBMappingObject agencyDBMappingObject = DBMappingFactory.getInstance().getDBMappingObject(AgencyBean.class.getName());
 		
 				/* delete */
-				result = employeeDBMappingObject.delete(employee);
+				result = agencyDBMappingObject.delete(agency);
 			
 				logger_.debug("deleteAction : result = " + result);
 			}

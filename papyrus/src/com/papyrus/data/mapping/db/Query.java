@@ -102,7 +102,7 @@ public class Query {
 		/* main part */	
 		sb.append("call ");
 		sb.append(query_);		
-		sb.append(" }");
+		//sb.append(" }");
 		
 		return sb.toString();
 	}

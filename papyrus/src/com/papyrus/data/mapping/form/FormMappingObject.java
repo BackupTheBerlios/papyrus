@@ -110,11 +110,12 @@ public class FormMappingObject {
 						if (null == finalValue) {
 							addError(INCORRECT, field.getLabel());
 							errorFields_.put(field.getName(), INCORRECT_ERROR_MESSAGE);
+							logger_.debug("setData : incorrect value (" + value + ") for the " + field.getName() + " field");
 						} 
 					} else
 						logger_.debug("setData : ignored value (" + value + ") for the " + field.getName() + " field");
 				} else {
-					/* the field is absolutely required ? */
+					/* is the field absolutely required ? */
 					if (field.isRequired()) {
 						addError(MANDATORY, field.getLabel());
 						errorFields_.put(field.getName(), MANDATORY_ERROR_MESSAGE);
@@ -176,7 +177,7 @@ public class FormMappingObject {
 			/* objectName property found */
 			if (null != field.getObjectField()) {
 				/* only if value corresponding */
-				Object value = htmlData_.get(field.getObjectField());
+				Object value = htmlData_.get(field.getName());
 				
 				if (null != value)
 					Utilities.setObjectData(object, field.getObjectField(), value);

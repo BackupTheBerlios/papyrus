@@ -6,6 +6,8 @@
 	
 	<action name="ADD">
 		<attribute name="company" label="Nom" objectField="company" type="String" required="true" />
+		<attribute name="parentCompany" label="Agence mère" objectField="parentCompany" type="Boolean" required="false" />
+		<attribute name="employeeLeader" label="Responsable" objectField="employeeLeader" type="Integer" required="false" />
 		<attribute name="address" label="Adresse" objectField="address" type="String" required="false" />
 		<attribute name="city" label="Ville" objectField="city" type="String" required="false" />
 		<attribute name="postalCode" label="Code Postal" objectField="postalCode" type="String" required="false" />
@@ -13,11 +15,14 @@
 		<attribute name="fax" label="Fax" objectField="fax" type="String" required="false" />
 		<attribute name="email" label="Email" objectField="email" type="String" required="false" />
 		<attribute name="agencyCode" label="Code Compta Agence" objectField="agencyCode" type="String" required="true" />
-		<attribute name="customerCode" label="Code Compta Client" objectField="customerCode" type="Short" required="true" />
+		<attribute name="customerCode" label="Code Compta Client" objectField="customerCode" type="String" required="true" />
 		<attribute name="billCode" label="Code Compta Facture" objectField="billCode" type="String" required="true" />
 	</action>
 	<action name="UPDATE">
+		<attribute name="id" label="id" objectField="id" type="Integer" required="true" />
 		<attribute name="company" label="Nom" objectField="company" type="String" required="true" />
+		<attribute name="parentCompany" label="Agence mère" objectField="parentCompany" type="Boolean" required="false" />
+		<attribute name="employeeLeader" label="Responsable" objectField="employeeLeaderId" type="Integer" required="false" />
 		<attribute name="address" label="Adresse" objectField="address" type="String" required="false" />
 		<attribute name="city" label="Ville" objectField="city" type="String" required="false" />
 		<attribute name="postalCode" label="Code Postal" objectField="postalCode" type="String" required="false" />
@@ -25,7 +30,7 @@
 		<attribute name="fax" label="Fax" objectField="fax" type="String" required="false" />
 		<attribute name="email" label="Email" objectField="email" type="String" required="false" />
 		<attribute name="agencyCode" label="Code Compta Agence" objectField="agencyCode" type="String" required="true" />
-		<attribute name="customerCode" label="Code Compta Client" objectField="customerCode" type="Short" required="true" />
+		<attribute name="customerCode" label="Code Compta Client" objectField="customerCode" type="String" required="true" />
 		<attribute name="billCode" label="Code Compta Facture" objectField="billCode" type="String" required="true" />
 	</action>
 </object>
